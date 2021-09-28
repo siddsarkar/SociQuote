@@ -7,18 +7,16 @@
  */
 
 import React, {useEffect} from 'react';
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
-import HomeScreen from './src/views/Home/HomeScreen';
+import * as views from './src/views';
 
-const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
+export default () => {
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#000' : '#fff',
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#000',
+    justifyContent: 'center',
   };
 
   useEffect(() => {
@@ -27,10 +25,8 @@ const App = () => {
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <HomeScreen />
+      <StatusBar barStyle="light-content" />
+      <views.HomeScreen />
     </SafeAreaView>
   );
 };
-
-export default App;

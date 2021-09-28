@@ -4,29 +4,38 @@
  */
 
 import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
-import {Dimensions, FlatList, StyleSheet, Text, View} from 'react-native';
+import {
+  Clipboard,
+  Dimensions,
+  FlatList,
+  StyleSheet,
+  Text,
+  ToastAndroid,
+  View,
+} from 'react-native';
 
 const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
 
 const Slide = memo(function Slide({data}) {
-  // let imageSource = 'https://i.stack.imgur.com/y9DpT.jpg';
+  const copyToClipboard = () => {
+    Clipboard.setString(data.fields.content + '  — ' + data.fields.author);
+    ToastAndroid.show('Copied', ToastAndroid.SHORT);
+  };
+
   return (
     <View style={s.slide}>
-      {/* <Image source={{uri: imageSource}} style={s.slideImage} /> */}
-      {/* <View style={{backgroundColor: 'rgba(0, 0, 0, 0.3)', width: '100%'}}> */}
-      <Text style={{fontSize: 35, color: '#fff', textAlign: 'center'}}>〃</Text>
-      <Text style={s.slideText}>{data.fields.content}</Text>
-      <Text style={s.slideTextAuthor}>- {data.fields.author}</Text>
-      {/* </View> */}
+      <Text style={s.quoteSymbol}>〃</Text>
+      <Text onLongPress={copyToClipboard} style={s.slideText}>
+        {data.fields.content}
+      </Text>
+      <Text onLongPress={copyToClipboard} style={s.slideTextAuthor}>
+        — {data.fields.author}
+      </Text>
     </View>
   );
 });
 
-const Caraousel = ({
-  slideList = [
-    {thumbnails: {large: {url: 'https://i.stack.imgur.com/y9DpT.jpg'}}},
-  ],
-}) => {
+const Caraousel = ({slideList = []}) => {
   const [index, setIndex] = useState(0);
   let flatListRef = useRef(null);
 
@@ -76,7 +85,7 @@ const Caraousel = ({
   }, []);
 
   return (
-    <View style={s.carousel}>
+    <View>
       <FlatList
         ref={ref => {
           flatListRef.current = ref;
@@ -86,7 +95,6 @@ const Caraousel = ({
         pagingEnabled
         horizontal
         showsHorizontalScrollIndicator={false}
-        onEndReached={(...info) => console.log('list ended', ...info)}
         bounces={false}
         onScroll={onScroll}
         {...flatListOptimizationProps}
@@ -118,22 +126,25 @@ const s = StyleSheet.create({
     alignItems: 'center',
     overflow: 'hidden',
   },
-  slideImage: {width: windowWidth, height: '100%', position: 'absolute'},
   slideText: {
     fontSize: 18,
     fontStyle: 'italic',
-    color: '#fafafb',
+    color: 'white',
     padding: 8,
     textAlign: 'center',
   },
   slideTextAuthor: {
     fontSize: 16,
     fontStyle: 'italic',
-    color: '#d7d7d7',
+    color: 'gray',
     padding: 6,
     textAlign: 'center',
   },
-
+  quoteSymbol: {
+    fontSize: 35,
+    color: 'white',
+    textAlign: 'center',
+  },
   pagination: {
     position: 'absolute',
     bottom: 18,
@@ -148,6 +159,6 @@ const s = StyleSheet.create({
     borderRadius: 4,
     marginHorizontal: 2,
   },
-  paginationDotActive: {backgroundColor: 'lightblue'},
+  paginationDotActive: {backgroundColor: 'white'},
   paginationDotInactive: {backgroundColor: 'gray'},
 });

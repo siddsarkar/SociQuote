@@ -1,9 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, RefreshControl, ScrollView} from 'react-native';
+import {
+  ActivityIndicator,
+  RefreshControl,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import api from '../../api';
 import Caraousel from '../../libs/Caraousel';
 
-function HomeScreen() {
+const HomeScreen = () => {
   const [data, setData] = useState([]);
   const [pageOffset, setPageOffset] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -17,11 +23,11 @@ function HomeScreen() {
         params: {limit: 10, offset: pageOffset},
       });
 
-      // console.log(JSON.stringify(response, null, 2));
       setPageOffset(response.offset);
       setData(response.records);
       setRefreshing(false);
     }
+
     fetchData();
   };
 
@@ -31,27 +37,33 @@ function HomeScreen() {
         table: 'quotes',
         params: {limit: 10},
       });
-      // console.log(JSON.stringify(response, null, 2));
       setPageOffset(response.offset);
       setData(response.records);
       setIsLoading(false);
     }
+
     fetchData();
   }, []);
 
+  const backgroundStyle = {flex: 1};
+  const textStyle = {color: '#fff', marginTop: 8};
+
   return isLoading ? (
-    <ActivityIndicator color="#fff" />
+    <View>
+      <ActivityIndicator color="#fff" size="large" />
+      <Text style={textStyle}>Loading...</Text>
+    </View>
   ) : (
     <ScrollView
       showsHorizontalScrollIndicator={false}
       refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
-      contentContainerStyle={{flex: 1}}
+      contentContainerStyle={backgroundStyle}
     >
       <Caraousel slideList={data} />
     </ScrollView>
   );
-}
+};
 
 export default HomeScreen;

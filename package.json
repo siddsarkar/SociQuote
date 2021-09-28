@@ -10,6 +10,10 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "@react-native-clipboard/clipboard": "^1.8.4",
+    "appcenter": "^4.3.0",
+    "appcenter-analytics": "^4.3.0",
+    "appcenter-crashes": "^4.3.0",
     "react": "17.0.2",
     "react-native": "0.65.1",
     "react-native-splash-screen": "^3.2.0"
