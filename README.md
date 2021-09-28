@@ -1,6 +1,6 @@
 # <img src="android/app/src/main/res/mipmap-hdpi/ic_launcher.png" width="45" align="left"> SociQuote
 
-A open source quotes app made possible by [Airtable](https://airtable.com/) and [ReactNative](https://reactnative.dev/).
+A open source quotes app made possible by [Airtable](https://airtable.com/) and [React Native](https://reactnative.dev/).
 
 ## Status
 
@@ -9,7 +9,7 @@ A open source quotes app made possible by [Airtable](https://airtable.com/) and 
 
 ## Installation
 
-Head over to [releases](https://github.com/siddsarkar/WallPeep/releases) to grab the latest apk from assets.
+Head over to [releases](https://github.com/siddsarkar/SociQuote/releases) to grab the latest apk from assets.
 
 ## License
 
