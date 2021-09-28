@@ -1,4 +1,4 @@
-# <img src="android/app/src/main/res/mipmap-hdpi/ic_launcher.png" width="45" align="left"> SociQuote
+# <img src="resources/play_store_512.png" width="45" align="left"> SociQuote
 
 A open source quotes app made possible by [Airtable](https://airtable.com/) and [React Native](https://reactnative.dev/).
 
