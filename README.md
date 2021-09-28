@@ -11,6 +11,10 @@ A open source quotes app made possible by [Airtable](https://airtable.com/) and 
 
 Head over to [releases](https://github.com/siddsarkar/SociQuote/releases) to grab the latest apk from assets.
 
+## Design 
+
+![cover image](resources/cover.jpeg)
+
 ## License
 
 [MIT](https://github.com/siddsarkar/SociQuote/blob/main/LICENSE)
