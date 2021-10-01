@@ -25,3 +25,7 @@ Head over to [releases](https://github.com/siddsarkar/SociQuote/releases) to gra
 ## License
 
 [MIT](https://github.com/siddsarkar/SociQuote/blob/main/LICENSE)
+
+## Todos 
+
+- [ ] Custom loader
