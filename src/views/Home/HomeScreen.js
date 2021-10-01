@@ -7,24 +7,24 @@ import {
   View,
 } from 'react-native';
 import api from '../../api';
-import Caraousel from '../../libs/Caraousel';
+import {Caraousel} from '../../components/common';
 
 const HomeScreen = () => {
   const [data, setData] = useState([]);
-  const [pageOffset, setPageOffset] = useState('');
+  const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = () => {
     setRefreshing(true);
     async function fetchData() {
-      const response = await api.airtable.getTable({
-        table: 'quotes',
-        params: {limit: 10, offset: pageOffset},
+      const response = await api.quotable.getQuotes({
+        limit: 10,
+        page,
       });
 
-      setPageOffset(response.offset);
-      setData(response.records);
+      setPage(response.page + 1);
+      setData(response.results);
       setRefreshing(false);
     }
 
@@ -33,12 +33,10 @@ const HomeScreen = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await api.airtable.getTable({
-        table: 'quotes',
-        params: {limit: 10},
-      });
-      setPageOffset(response.offset);
-      setData(response.records);
+      const response = await api.quotable.getQuotes({limit: 10});
+      setPage(response.page + 1);
+      setData(response.results);
+
       setIsLoading(false);
     }
 

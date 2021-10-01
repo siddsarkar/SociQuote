@@ -12,7 +12,6 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@react-native-clipboard/clipboard": "^1.8.4",
     "appcenter": "^4.3.0",
     "appcenter-analytics": "^4.3.0",
     "appcenter-crashes": "^4.3.0",

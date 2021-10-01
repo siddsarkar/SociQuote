@@ -1,3 +1,3 @@
-import airtable from './providers/airtable.js';
+import quotable from './providers/quotable';
 
-export default {airtable};
+export default {quotable};

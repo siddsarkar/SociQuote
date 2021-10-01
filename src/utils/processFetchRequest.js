@@ -1,10 +1,10 @@
 /**
  * Global network request handler
- * @param {string} url url to fetch
- * @param {Request} options fetch options
+ * @param {RequestInfo} url url to fetch
+ * @param {RequestInit=} options fetch options
  * @returns json response
  */
-async function requestHandler(url, options) {
+const processFetchRequest = async (url, options) => {
   const ts = Date.now();
   const method = options?.method || 'GET';
   const endpoint = url.match(
@@ -18,6 +18,6 @@ async function requestHandler(url, options) {
     return response.json();
   }
   throw response.json();
-}
+};
 
-export default requestHandler;
+export default processFetchRequest;

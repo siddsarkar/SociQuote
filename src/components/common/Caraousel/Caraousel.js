@@ -1,13 +1,14 @@
 /**
- * @source https://lloyds-digital.com/blog/lets-create-a-carousel-in-react-native
- * @modified
+ * This caraousel was made by following the below article link
+ * https://lloyds-digital.com/blog/lets-create-a-carousel-in-react-native
  */
 
+import Analytics from 'appcenter-analytics';
 import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
 import {
-  Clipboard,
   Dimensions,
   FlatList,
+  Share,
   StyleSheet,
   Text,
   ToastAndroid,
@@ -17,19 +18,35 @@ import {
 const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
 
 const Slide = memo(function Slide({data}) {
-  const copyToClipboard = () => {
-    Clipboard.setString(data.fields.content + '  — ' + data.fields.author);
-    ToastAndroid.show('Copied', ToastAndroid.SHORT);
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: data.content + '\n  — ' + data.author,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+          Analytics.trackEvent('Quote Shared', {id: data._id});
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+    }
   };
 
   return (
     <View style={s.slide}>
       <Text style={s.quoteSymbol}>〃</Text>
-      <Text onLongPress={copyToClipboard} style={s.slideText}>
-        {data.fields.content}
+
+      <Text onLongPress={onShare} style={s.slideText}>
+        {data.content}
       </Text>
-      <Text onLongPress={copyToClipboard} style={s.slideTextAuthor}>
-        — {data.fields.author}
+      <Text onLongPress={onShare} style={s.slideTextAuthor}>
+        — {data.author}
       </Text>
     </View>
   );
@@ -69,7 +86,7 @@ const Caraousel = ({slideList = []}) => {
     removeClippedSubviews: true,
     scrollEventThrottle: 16,
     windowSize: 2,
-    keyExtractor: useCallback(s => String(s.id), []),
+    keyExtractor: useCallback(s => s._id, []),
     getItemLayout: useCallback(
       (_, idx) => ({
         index: idx,

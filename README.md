@@ -1,8 +1,7 @@
 # <img src="resources/play_store_512.png" width="45" align="left"> SociQuote
 
-A open source quotes app made possible by [Airtable](https://airtable.com/) and [React Native](https://reactnative.dev/).
+A open source quotes app made possible by [React Native](https://reactnative.dev/).
 
-![Airtable](https://img.shields.io/badge/Airtable-18BFFF?style=for-the-badge&logo=Airtable&logoColor=white)
 ![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
 ## Status
@@ -14,7 +13,12 @@ A open source quotes app made possible by [Airtable](https://airtable.com/) and 
 
 Head over to [releases](https://github.com/siddsarkar/SociQuote/releases) to grab the latest apk from assets.
 
-## Design 
+## Features
+
+- [x] Pull to refresh
+- [x] Longpress for sharing
+
+## Design
 
 ![cover image](resources/cover.jpeg)
 
