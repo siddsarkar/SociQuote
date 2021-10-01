@@ -1,6 +1,6 @@
 # <img src="resources/play_store_512.png" width="45" align="left"> SociQuote
 
-A open source quotes app made possible by [React Native](https://reactnative.dev/).
+A open source quotes app made possible by [quotable open source API](https://github.com/lukePeavey/quotable) and [React Native](https://reactnative.dev/).
 
 ![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
 
