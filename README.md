@@ -26,6 +26,7 @@ Head over to [releases](https://github.com/siddsarkar/SociQuote/releases) to gra
 
 [MIT](https://github.com/siddsarkar/SociQuote/blob/main/LICENSE)
 
-## Todos 
+## Todos
 
-- [ ] Custom loader
+- [x] Custom loader
+- [ ] Add share options(to ui element)

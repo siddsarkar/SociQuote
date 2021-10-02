@@ -16,8 +16,10 @@
     "appcenter-analytics": "^4.3.0",
     "appcenter-crashes": "^4.3.0",
     "react": "17.0.2",
+    "react-content-loader": "^6.0.3",
     "react-native": "0.65.1",
-    "react-native-splash-screen": "^3.2.0"
+    "react-native-splash-screen": "^3.2.0",
+    "react-native-svg": "^12.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
