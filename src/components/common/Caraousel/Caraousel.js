@@ -41,7 +41,6 @@ const Slide = memo(function Slide({data}) {
   return (
     <View style={s.slide}>
       <Text style={s.quoteSymbol}>〃</Text>
-
       <Text onLongPress={onShare} style={s.slideText}>
         {data.content}
       </Text>
