@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import ContentLoader, {Rect} from 'react-content-loader/native'
-import {RefreshControl, ScrollView, Text, View} from 'react-native'
+import {
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import api from '../../api'
 import {Caraousel} from '../../components/common'
 
@@ -22,22 +28,34 @@ const QuoteSkeletonLoader = props => (
 const HomeScreen = () => {
   const [data, setData] = useState([])
   const [page, setPage] = useState(1)
+  const [isError, setIsError] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = () => {
+    setIsError(false)
     setRefreshing(true)
     setIsLoading(true)
     async function fetchData() {
-      const response = await api.quotable.getQuotes({
-        limit: 10,
-        page,
-      })
+      try {
+        const response = await api.quotable.getQuotes({
+          limit: 10,
+          page,
+        })
 
-      setPage(response.page + 1)
-      setData(response.results)
-      setRefreshing(false)
-      setIsLoading(false)
+        setPage(response.page + 1)
+        setData(response.results)
+        setRefreshing(false)
+      } catch (error) {
+        console.log(error)
+        setIsError(true)
+      }
+
+      if (isError) {
+        setTimeout(() => setIsLoading(false), 2000)
+      } else {
+        setIsLoading(false)
+      }
     }
 
     fetchData()
@@ -45,11 +63,17 @@ const HomeScreen = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await api.quotable.getQuotes({limit: 10})
-      setPage(response.page + 1)
-      setData(response.results)
+      try {
+        const response = await api.quotable.getQuotes({limit: 10})
+        setPage(response.page + 1)
+        setData(response.results)
 
-      setIsLoading(false)
+        setIsLoading(false)
+      } catch (error) {
+        console.log(error)
+        setIsError(true)
+        setTimeout(() => setIsLoading(false), 2000)
+      }
     }
     setIsLoading(true)
     fetchData()
@@ -59,13 +83,31 @@ const HomeScreen = () => {
   const textStyle = {
     fontSize: 35,
     color: 'white',
-    textAlign: 'center',
   }
 
   return isLoading ? (
     <View>
-      <Text style={textStyle}>〃</Text>
+      <Text style={[textStyle, {textAlign: 'center'}]}>〃</Text>
       <QuoteSkeletonLoader />
+    </View>
+  ) : isError ? (
+    <View>
+      <Text style={textStyle}>:(</Text>
+      <Text style={[textStyle, {marginVertical: 8}]}>Couldn't connect</Text>
+      <TouchableOpacity
+        onPress={onRefresh}
+        activeOpacity={0.8}
+        style={{
+          backgroundColor: '#fafafb',
+          borderRadius: 16,
+          height: 32,
+          width: '100%',
+          marginTop: 8,
+          justifyContent: 'center',
+        }}
+      >
+        <Text style={{textAlign: 'center', paddingHorizontal: 32}}>retry</Text>
+      </TouchableOpacity>
     </View>
   ) : (
     <ScrollView
