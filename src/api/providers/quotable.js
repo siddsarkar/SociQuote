@@ -1,6 +1,6 @@
-import {generateQueryStrFromObject, processFetchRequest} from '../../utils';
+import {generateQueryStrFromObject, processFetchRequest} from '../../utils'
 
-const QUOTABLE_BASE_URL = 'https://quotable.io';
+const QUOTABLE_BASE_URL = 'https://quotable.io'
 
 /**
  * Get list of quotes
@@ -8,15 +8,15 @@ const QUOTABLE_BASE_URL = 'https://quotable.io';
  * @returns json response
  */
 const getQuotes = async function (params) {
-  let url = `${QUOTABLE_BASE_URL}/quotes`;
+  let url = `${QUOTABLE_BASE_URL}/quotes`
   if (params) {
-    url += generateQueryStrFromObject(params);
+    url += generateQueryStrFromObject(params)
   }
 
-  return processFetchRequest(url);
-};
+  return processFetchRequest(url)
+}
 
 export default {
   getQuotes,
   // other methods here
-};
+}

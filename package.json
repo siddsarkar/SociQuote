@@ -9,7 +9,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "fromat": "prettier . --write"
   },
   "dependencies": {
     "appcenter": "^4.3.0",

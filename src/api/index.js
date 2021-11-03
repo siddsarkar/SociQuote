@@ -1,3 +1,3 @@
-import quotable from './providers/quotable';
+import quotable from './providers/quotable'
 
-export default {quotable};
+export default {quotable}

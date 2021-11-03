@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import ContentLoader, {Rect} from 'react-content-loader/native';
-import {RefreshControl, ScrollView, Text, View} from 'react-native';
-import api from '../../api';
-import {Caraousel} from '../../components/common';
+import React, {useEffect, useState} from 'react'
+import ContentLoader, {Rect} from 'react-content-loader/native'
+import {RefreshControl, ScrollView, Text, View} from 'react-native'
+import api from '../../api'
+import {Caraousel} from '../../components/common'
 
 const QuoteSkeletonLoader = props => (
   <ContentLoader
@@ -17,50 +17,50 @@ const QuoteSkeletonLoader = props => (
     <Rect x="0" y="10" rx="0" ry="0" width="300" height="6" />
     <Rect x={(400 - 178) / 3} y="26" rx="0" ry="0" width="178" height="6" />
   </ContentLoader>
-);
+)
 
 const HomeScreen = () => {
-  const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
+  const [data, setData] = useState([])
+  const [page, setPage] = useState(1)
+  const [isLoading, setIsLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
 
   const onRefresh = () => {
-    setRefreshing(true);
-    setIsLoading(true);
+    setRefreshing(true)
+    setIsLoading(true)
     async function fetchData() {
       const response = await api.quotable.getQuotes({
         limit: 10,
         page,
-      });
+      })
 
-      setPage(response.page + 1);
-      setData(response.results);
-      setRefreshing(false);
-      setIsLoading(false);
+      setPage(response.page + 1)
+      setData(response.results)
+      setRefreshing(false)
+      setIsLoading(false)
     }
 
-    fetchData();
-  };
+    fetchData()
+  }
 
   useEffect(() => {
     async function fetchData() {
-      const response = await api.quotable.getQuotes({limit: 10});
-      setPage(response.page + 1);
-      setData(response.results);
+      const response = await api.quotable.getQuotes({limit: 10})
+      setPage(response.page + 1)
+      setData(response.results)
 
-      setIsLoading(false);
+      setIsLoading(false)
     }
-    setIsLoading(true);
-    fetchData();
-  }, []);
+    setIsLoading(true)
+    fetchData()
+  }, [])
 
-  const backgroundStyle = {flex: 1};
+  const backgroundStyle = {flex: 1}
   const textStyle = {
     fontSize: 35,
     color: 'white',
     textAlign: 'center',
-  };
+  }
 
   return isLoading ? (
     <View>
@@ -77,7 +77,7 @@ const HomeScreen = () => {
     >
       <Caraousel slideList={data} />
     </ScrollView>
-  );
-};
+  )
+}
 
-export default HomeScreen;
+export default HomeScreen

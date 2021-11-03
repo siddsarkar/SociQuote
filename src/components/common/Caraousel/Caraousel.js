@@ -3,8 +3,8 @@
  * https://lloyds-digital.com/blog/lets-create-a-carousel-in-react-native
  */
 
-import Analytics from 'appcenter-analytics';
-import React, {memo, useCallback, useEffect, useRef, useState} from 'react';
+import Analytics from 'appcenter-analytics'
+import React, {memo, useCallback, useEffect, useRef, useState} from 'react'
 import {
   Dimensions,
   FlatList,
@@ -13,30 +13,30 @@ import {
   Text,
   ToastAndroid,
   View,
-} from 'react-native';
+} from 'react-native'
 
-const {width: windowWidth, height: windowHeight} = Dimensions.get('window');
+const {width: windowWidth, height: windowHeight} = Dimensions.get('window')
 
 const Slide = memo(function Slide({data}) {
   const onShare = async () => {
     try {
       const result = await Share.share({
         message: data.content + '\n  — ' + data.author,
-      });
+      })
       if (result.action === Share.sharedAction) {
         if (result.activityType) {
           // shared with activity type of result.activityType
         } else {
           // shared
-          Analytics.trackEvent('Quote Shared', {id: data._id});
+          Analytics.trackEvent('Quote Shared', {id: data._id})
         }
       } else if (result.action === Share.dismissedAction) {
         // dismissed
       }
     } catch (error) {
-      ToastAndroid.show(error.message, ToastAndroid.SHORT);
+      ToastAndroid.show(error.message, ToastAndroid.SHORT)
     }
-  };
+  }
 
   return (
     <View style={s.slide}>
@@ -48,36 +48,36 @@ const Slide = memo(function Slide({data}) {
         — {data.author}
       </Text>
     </View>
-  );
-});
+  )
+})
 
 const Caraousel = ({slideList = []}) => {
-  const [index, setIndex] = useState(0);
-  let flatListRef = useRef(null);
+  const [index, setIndex] = useState(0)
+  let flatListRef = useRef(null)
 
-  const indexRef = useRef(index);
-  indexRef.current = index;
+  const indexRef = useRef(index)
+  indexRef.current = index
 
   useEffect(() => {
-    flatListRef.current.scrollToIndex({index: 0, animated: false});
-  }, [slideList]);
+    flatListRef.current.scrollToIndex({index: 0, animated: false})
+  }, [slideList])
 
   const onScroll = useCallback(event => {
-    const slideSize = event.nativeEvent.layoutMeasurement.width;
-    const newIndex = event.nativeEvent.contentOffset.x / slideSize;
-    const roundIndex = Math.round(newIndex);
+    const slideSize = event.nativeEvent.layoutMeasurement.width
+    const newIndex = event.nativeEvent.contentOffset.x / slideSize
+    const roundIndex = Math.round(newIndex)
 
-    const distance = Math.abs(roundIndex - newIndex);
+    const distance = Math.abs(roundIndex - newIndex)
 
     // Prevent one pixel triggering setIndex in the middle
     // of the transition. With this we have to scroll a bit
     // more to trigger the index change.
-    const isNoMansLand = distance > 0.4;
+    const isNoMansLand = distance > 0.4
 
     if (roundIndex !== indexRef.current && !isNoMansLand) {
-      setIndex(roundIndex);
+      setIndex(roundIndex)
     }
-  }, []);
+  }, [])
 
   const flatListOptimizationProps = {
     initialNumToRender: 0,
@@ -94,17 +94,17 @@ const Caraousel = ({slideList = []}) => {
       }),
       [],
     ),
-  };
+  }
 
   const renderItem = useCallback(function renderItem({item}) {
-    return <Slide data={item} />;
-  }, []);
+    return <Slide data={item} />
+  }, [])
 
   return (
     <View>
       <FlatList
         ref={ref => {
-          flatListRef.current = ref;
+          flatListRef.current = ref
         }}
         data={slideList}
         renderItem={renderItem}
@@ -125,14 +125,14 @@ const Caraousel = ({slideList = []}) => {
                 index === i ? s.paginationDotActive : s.paginationDotInactive,
               ]}
             />
-          );
+          )
         })}
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Caraousel;
+export default Caraousel
 
 const s = StyleSheet.create({
   slide: {
@@ -177,4 +177,4 @@ const s = StyleSheet.create({
   },
   paginationDotActive: {backgroundColor: 'white'},
   paginationDotInactive: {backgroundColor: 'gray'},
-});
+})

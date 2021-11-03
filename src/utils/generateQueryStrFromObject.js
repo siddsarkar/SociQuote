@@ -7,10 +7,10 @@ const generateQueryStrFromObject = obj =>
   Object.keys(obj)
     .map((key, idx) => {
       if (idx === 0) {
-        return `?${key}=${obj[key]}`;
+        return `?${key}=${obj[key]}`
       }
-      return `&${key}=${obj[key]}`;
+      return `&${key}=${obj[key]}`
     })
-    .join('');
+    .join('')
 
-export default generateQueryStrFromObject;
+export default generateQueryStrFromObject
