@@ -9,9 +9,9 @@ A open source quotes app made possible by [quotable open source API](https://git
 [![Build status](https://build.appcenter.ms/v0.1/apps/abea0050-44b3-4807-91b8-4115029e7e95/branches/main/badge)](https://appcenter.ms)
 ![GH Actions](https://github.com/siddsarkar/sociQuote/actions/workflows/release.yml/badge.svg)
 
-## Installation
+## Download
 
-Head over to [releases](https://github.com/siddsarkar/SociQuote/releases) to grab the latest apk from assets.
+[Download from Github](https://github.com/siddsarkar/SociQuote/releases) to grab the latest apk.
 
 ## Features
 
